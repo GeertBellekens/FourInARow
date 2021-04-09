@@ -626,7 +626,7 @@
             this.newGameButton.Name = "newGameButton";
             this.newGameButton.Size = new System.Drawing.Size(75, 23);
             this.newGameButton.TabIndex = 43;
-            this.newGameButton.Text = "New Game";
+            this.newGameButton.Text = "Opnieuw";
             this.newGameButton.UseVisualStyleBackColor = true;
             this.newGameButton.Click += new System.EventHandler(this.newGameButton_Click);
             // 

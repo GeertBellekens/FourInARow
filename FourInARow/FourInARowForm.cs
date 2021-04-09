@@ -127,8 +127,10 @@ namespace FourInARow
             for (int i = 0; i < game.columns.Count(); i++)
             {
                 //set dropButton status and color
-                this.dropButtons[i].Enabled = !game.columns[i].isFull;
-                if (!game.columns[i].isFull)
+                this.dropButtons[i].Enabled = !game.columns[i].isFull
+                                               && (this.game.winner == CellColor.empty);
+                if (!game.columns[i].isFull
+                    && (this.game.winner == CellColor.empty))
                 {
                     this.dropButtons[i].BackColor = this.game.currentPlayer == CellColor.yellow
                                                 ? Color.Gold
@@ -138,8 +140,6 @@ namespace FourInARow
                 {
                     this.dropButtons[i].BackColor = default;
                 }
-                
-
                 //set cells
                 for (int j = 0; j < game.columns[i].cells.Count(); j++)
                 {
@@ -156,6 +156,18 @@ namespace FourInARow
                             break;
                     }
                 }
+            }
+            //check if there is a winner
+            if (this.game.winner != CellColor.empty)
+            {
+                var winnerName = this.game.winner == CellColor.red
+                                ? "Rood"
+                                : "Geel";
+                this.statusLabel.Text = $"De winnaar is {winnerName}!";
+            }
+            else
+            {
+                this.statusLabel.Text = string.Empty;
             }
         }
 
