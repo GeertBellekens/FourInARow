@@ -79,6 +79,7 @@
             this.A1 = new System.Windows.Forms.PictureBox();
             this.newGameButton = new System.Windows.Forms.Button();
             this.statusLabel = new System.Windows.Forms.Label();
+            this.playAgainstComputerCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.G6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.G5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.G4)).BeginInit();
@@ -622,7 +623,7 @@
             // 
             // newGameButton
             // 
-            this.newGameButton.Location = new System.Drawing.Point(12, 12);
+            this.newGameButton.Location = new System.Drawing.Point(316, 10);
             this.newGameButton.Name = "newGameButton";
             this.newGameButton.Size = new System.Drawing.Size(75, 23);
             this.newGameButton.TabIndex = 43;
@@ -633,16 +634,31 @@
             // statusLabel
             // 
             this.statusLabel.AutoSize = true;
-            this.statusLabel.Location = new System.Drawing.Point(112, 18);
+            this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabel.Location = new System.Drawing.Point(12, 12);
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(0, 13);
+            this.statusLabel.Size = new System.Drawing.Size(49, 16);
             this.statusLabel.TabIndex = 44;
+            this.statusLabel.Text = "status";
+            // 
+            // playAgainstComputerCheckbox
+            // 
+            this.playAgainstComputerCheckbox.AutoSize = true;
+            this.playAgainstComputerCheckbox.Checked = true;
+            this.playAgainstComputerCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.playAgainstComputerCheckbox.Location = new System.Drawing.Point(165, 12);
+            this.playAgainstComputerCheckbox.Name = "playAgainstComputerCheckbox";
+            this.playAgainstComputerCheckbox.Size = new System.Drawing.Size(145, 17);
+            this.playAgainstComputerCheckbox.TabIndex = 45;
+            this.playAgainstComputerCheckbox.Text = "Speel tegen de computer";
+            this.playAgainstComputerCheckbox.UseVisualStyleBackColor = true;
             // 
             // FourInARowForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(408, 413);
+            this.Controls.Add(this.playAgainstComputerCheckbox);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.newGameButton);
             this.Controls.Add(this.dropGButton);
@@ -799,6 +815,7 @@
         private System.Windows.Forms.Button dropGButton;
         private System.Windows.Forms.Button newGameButton;
         private System.Windows.Forms.Label statusLabel;
+        private System.Windows.Forms.CheckBox playAgainstComputerCheckbox;
     }
 }
 

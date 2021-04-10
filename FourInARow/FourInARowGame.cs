@@ -10,10 +10,12 @@ namespace FourInARow
     public class FourInARowGame
     {
         private List<FourInARowColumn> _columns;
+        public bool vsComputer { get; private set; }
         public List<FourInARowColumn> columns { get => this._columns; }
 
-        public FourInARowGame()
+        public FourInARowGame(bool vsComputer)
         {
+            this.vsComputer = vsComputer;
             this._columns = new List<FourInARowColumn>();
             for (int i = 0; i < 7; i++)
             {
@@ -37,6 +39,27 @@ namespace FourInARow
                 this._columns[columnIndex].addDisk(this.currentPlayer);
                 this.switchPlayer();
                 this.determimeWinner();
+                if (this.vsComputer
+                    && this.currentPlayer == CellColor.red
+                    && this.winner == CellColor.empty)
+                {
+                    this.playAsComputer();
+                }
+            }
+        }
+        private void playAsComputer()
+        {
+            //play random
+            Random rand = new Random();
+            bool played = false;
+            while(! played)
+            {
+                var randomColumn = rand.Next(0, this.columns.Count -1); 
+                if (! this.columns[randomColumn].isFull)
+                {
+                    this.play(randomColumn);
+                    played = true;
+                }
             }
         }
         private void determimeWinner()

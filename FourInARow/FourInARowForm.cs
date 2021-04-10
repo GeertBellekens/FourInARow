@@ -119,6 +119,7 @@ namespace FourInARow
         {
             InitializeComponent();
             this.game = game;
+            this.playAgainstComputerCheckbox.Checked = this.game.vsComputer;
             this.renderGame();
         }
         
@@ -214,7 +215,7 @@ namespace FourInARow
 
         private void newGameButton_Click(object sender, EventArgs e)
         {
-            this.game = new FourInARowGame();
+            this.game = new FourInARowGame(this.playAgainstComputerCheckbox.Checked);
             this.renderGame();
         }
     }

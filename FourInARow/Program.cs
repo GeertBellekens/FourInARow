@@ -16,7 +16,7 @@ namespace FourInARow
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var game = new FourInARowGame();
+            var game = new FourInARowGame(true);
             var form = new FourInARowForm(game);
             
             Application.Run(form);
