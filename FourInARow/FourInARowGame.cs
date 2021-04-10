@@ -49,12 +49,17 @@ namespace FourInARow
         }
         private void playAsComputer()
         {
+            //check if not everything is full already
+            if (!this.columns.Any( x => x.isFull == false))
+            {
+                return;
+            }
             //play random
             Random rand = new Random();
             bool played = false;
             while(! played)
             {
-                var randomColumn = rand.Next(0, this.columns.Count -1); 
+                var randomColumn = rand.Next(0, this.columns.Count); 
                 if (! this.columns[randomColumn].isFull)
                 {
                     this.play(randomColumn);
