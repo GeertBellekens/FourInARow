@@ -33,5 +33,13 @@ namespace FourInARow
         {
             get => this._cells;
         }
+
+        internal void removeDisk()
+        {
+            if (this.cells.Any(x => x.color != CellColor.empty))
+            {
+                this._cells.Last(x => x.color != CellColor.empty).color = CellColor.empty;
+            }
+        }
     }
 }

@@ -121,7 +121,7 @@ namespace FourInARow
             {
                 int size = 1;//always at least one
                 for (int k = 1; k <= 3; k++)
-                {    
+                {
                     var currentCellColor = this.columns[i - k].cells[j + k].color;
                     if (currentCellColor == color)
                     {
@@ -214,7 +214,7 @@ namespace FourInARow
                         //arrived at 4th cell, found a combo
                         combos[size]++;
                         break;
-                    }  
+                    }
                 }
             }
             //search SE
@@ -286,18 +286,39 @@ namespace FourInARow
             {
                 return;
             }
-            //play random
-            Random rand = new Random();
-            bool played = false;
-            while (!played)
+            //find the best option
+            int bestColumn = 0;
+            int maximumScore = int.MinValue;
+            for (int i = 0; i < this.columns.Count; i++)
             {
-                var randomColumn = rand.Next(0, this.columns.Count);
-                if (!this.columns[randomColumn].isFull)
+                if (!this.columns[i].isFull)
                 {
-                    this.play(randomColumn);
-                    played = true;
+                    this.columns[i].addDisk(CellColor.red);
+                    var score = this.getTotalScore();
+                    if (score > maximumScore)
+                    {
+                        bestColumn = i;
+                        maximumScore = score;
+                    }
+                    //remove again
+                    this.columns[i].removeDisk();
                 }
             }
+            //play the best column
+            this.play(bestColumn);
+
+            ////play random
+            //Random rand = new Random();
+            //bool played = false;
+            //while (!played)
+            //{
+            //    var randomColumn = rand.Next(0, this.columns.Count);
+            //    if (!this.columns[randomColumn].isFull)
+            //    {
+            //        this.play(randomColumn);
+            //        played = true;
+            //    }
+            //}
         }
         private void determimeWinner()
         {
