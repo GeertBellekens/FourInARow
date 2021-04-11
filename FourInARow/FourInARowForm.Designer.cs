@@ -80,6 +80,8 @@
             this.newGameButton = new System.Windows.Forms.Button();
             this.statusLabel = new System.Windows.Forms.Label();
             this.playAgainstComputerCheckbox = new System.Windows.Forms.CheckBox();
+            this.yellowScoreLabel = new System.Windows.Forms.Label();
+            this.redScoreLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.G6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.G5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.G4)).BeginInit();
@@ -653,11 +655,31 @@
             this.playAgainstComputerCheckbox.Text = "Speel tegen de computer";
             this.playAgainstComputerCheckbox.UseVisualStyleBackColor = true;
             // 
+            // yellowScoreLabel
+            // 
+            this.yellowScoreLabel.AutoSize = true;
+            this.yellowScoreLabel.Location = new System.Drawing.Point(21, 413);
+            this.yellowScoreLabel.Name = "yellowScoreLabel";
+            this.yellowScoreLabel.Size = new System.Drawing.Size(41, 13);
+            this.yellowScoreLabel.TabIndex = 46;
+            this.yellowScoreLabel.Text = "Geel: 0";
+            // 
+            // redScoreLabel
+            // 
+            this.redScoreLabel.AutoSize = true;
+            this.redScoreLabel.Location = new System.Drawing.Point(150, 413);
+            this.redScoreLabel.Name = "redScoreLabel";
+            this.redScoreLabel.Size = new System.Drawing.Size(45, 13);
+            this.redScoreLabel.TabIndex = 46;
+            this.redScoreLabel.Text = "Rood: 0";
+            // 
             // FourInARowForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(408, 413);
+            this.ClientSize = new System.Drawing.Size(408, 439);
+            this.Controls.Add(this.redScoreLabel);
+            this.Controls.Add(this.yellowScoreLabel);
             this.Controls.Add(this.playAgainstComputerCheckbox);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.newGameButton);
@@ -816,6 +838,8 @@
         private System.Windows.Forms.Button newGameButton;
         private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.CheckBox playAgainstComputerCheckbox;
+        private System.Windows.Forms.Label yellowScoreLabel;
+        private System.Windows.Forms.Label redScoreLabel;
     }
 }
 

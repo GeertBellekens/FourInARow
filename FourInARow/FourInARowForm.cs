@@ -170,6 +170,9 @@ namespace FourInARow
             {
                 this.statusLabel.Text = string.Empty;
             }
+            //set score labels
+            this.yellowScoreLabel.Text = $"Geel: {this.game.getScore(CellColor.yellow).ToString()}";
+            this.redScoreLabel.Text = $"Rood: {this.game.getScore(CellColor.red).ToString()}";
         }
 
         private void playTurn(int columnIndex)
