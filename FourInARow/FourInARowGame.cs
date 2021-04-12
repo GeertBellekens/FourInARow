@@ -18,13 +18,13 @@ namespace FourInARow
         {
             var redsScore = this.getScore(CellColor.red);
             var yellowScore = this.getScore(CellColor.yellow);
-            return redsScore - yellowScore;
+            return redsScore - yellowScore *2;
         }
         public int getScore(CellColor color)
         {
             int score = 0;
             var combos = this.getCombos(color);
-            score = combos[1] + combos[2] * 3 + combos[3] * 20 + combos[4] * 10000;
+            score = combos[1] + combos[2] * 5 + combos[3] * 20 + combos[4] * 10000;
             return score;
         }
 
@@ -39,7 +39,8 @@ namespace FourInARow
             {
                 for (int j = 0; j < this.columns[i].cells.Count; j++)
                 {
-                    if (this.columns[i].cells[j].color == color)
+                    if (this.columns[i].cells[j].color == color
+                        || this.columns[i].cells[j].color == CellColor.empty)
                     {
                         var newCombos = getCombosForCell(i, j, color);
                         combos[1] += newCombos[1];
@@ -59,68 +60,18 @@ namespace FourInARow
         private Dictionary<int, int> getCombosForCell(int i, int j, CellColor color)
         {
             var combos = new Dictionary<int, int>();
+            combos.Add(0, 0);
             combos.Add(1, 0);
             combos.Add(2, 0);
             combos.Add(3, 0);
             combos.Add(4, 0);
-            //search SW
-            if (i - 3 >= 0
-                && j - 3 >= 0)
-            {
-                int size = 1;//always at least one   
-                for (int k = 1; k <= 3; k++)
-                {
-                    var currentCellColor = this.columns[i - k].cells[j - k].color;
-                    if (currentCellColor == color)
-                    {
-                        size++;
-                    }
-                    else if (currentCellColor != color
-                        && currentCellColor != CellColor.empty)
-                    {
-                        //found the other color, no result
-                        break;
-                    }
-                    if (k == 3)
-                    {
-                        //arrived at 4th cell, found a combo
-                        combos[size]++;
-                        break;
-                    }
-                }
-            }
-
-            //search W
-            if (i - 3 >= 0)
-            {
-                int size = 1;//always at least one
-                for (int k = 1; k <= 3; k++)
-                {
-                    var currentCellColor = this.columns[i - k].cells[j].color;
-                    if (currentCellColor == color)
-                    {
-                        size++;
-                    }
-                    else if (currentCellColor != color
-                        && currentCellColor != CellColor.empty)
-                    {
-                        //found the other color, no result
-                        break;
-                    }
-                    if (k == 3)
-                    {
-                        //arrived at 4th cell, found a combo
-                        combos[size]++;
-                        break;
-                    }
-                }
-            }
+            
             //search NW
             if (i - 3 >= 0
             && j + 3 < this.columns[i].cells.Count())
             {
-                int size = 1;//always at least one
-                for (int k = 1; k <= 3; k++)
+                int size = 0;//always at least one
+                for (int k = 0; k <= 3; k++)
                 {
                     var currentCellColor = this.columns[i - k].cells[j + k].color;
                     if (currentCellColor == color)
@@ -144,8 +95,8 @@ namespace FourInARow
             //search N
             if (j + 3 < this.columns[i].cells.Count)
             {
-                int size = 1;//always at least one
-                for (int k = 1; k <= 3; k++)
+                int size = 0;//always at least one
+                for (int k = 0; k <= 3; k++)
                 {
                     var currentCellColor = this.columns[i].cells[j + k].color;
                     if (currentCellColor == color)
@@ -170,8 +121,8 @@ namespace FourInARow
             if (j + 3 < this.columns[i].cells.Count
                 && i + 3 < this.columns.Count)
             {
-                int size = 1;//always at least one
-                for (int k = 1; k <= 3; k++)
+                int size = 0;//always at least one
+                for (int k = 0; k <= 3; k++)
                 {
                     var currentCellColor = this.columns[i + k].cells[j + k].color;
                     if (currentCellColor == color)
@@ -195,36 +146,10 @@ namespace FourInARow
             //search E
             if (i + 3 < this.columns.Count)
             {
-                int size = 1;//always at least one
-                for (int k = 1; k <= 3; k++)
+                int size = 0;//always at least one
+                for (int k = 0; k <= 3; k++)
                 {
                     var currentCellColor = this.columns[i + k].cells[j].color;
-                    if (currentCellColor == color)
-                    {
-                        size++;
-                    }
-                    else if (currentCellColor != color
-                        && currentCellColor != CellColor.empty)
-                    {
-                        //found the other color, no result
-                        break;
-                    }
-                    if (k == 3)
-                    {
-                        //arrived at 4th cell, found a combo
-                        combos[size]++;
-                        break;
-                    }
-                }
-            }
-            //search SE
-            if (i + 3 < this.columns.Count
-                && j - 3 >= 0)
-            {
-                int size = 1;//always at least one
-                for (int k = 1; k <= 3; k++)
-                {
-                    var currentCellColor = this.columns[i + k].cells[j - k].color;
                     if (currentCellColor == color)
                     {
                         size++;
@@ -270,7 +195,7 @@ namespace FourInARow
             {
                 this._columns[columnIndex].addDisk(this.currentPlayer);
                 this.switchPlayer();
-                this.determimeWinner();
+                this.determineWinner();
                 if (this.vsComputer
                     && this.currentPlayer == CellColor.red
                     && this.winner == CellColor.empty)
@@ -295,6 +220,17 @@ namespace FourInARow
                 {
                     this.columns[i].addDisk(CellColor.red);
                     var score = this.getTotalScore();
+                    if (this.getWinner() == CellColor.red)
+                    {
+                        //red won, don't calculate further
+                        bestColumn = i;
+                        this.columns[i].removeDisk();
+                        break;
+                    }
+                    else
+                    {
+                        score = calculateNextMove(CellColor.yellow);
+                    }
                     if (score > maximumScore)
                     {
                         bestColumn = i;
@@ -320,7 +256,31 @@ namespace FourInARow
             //    }
             //}
         }
-        private void determimeWinner()
+        private int calculateNextMove(CellColor color)
+        {
+            //get the score with the lowest points
+            int minimumScore = int.MaxValue;
+            for (int i = 0; i < this.columns.Count; i++)
+            {
+                if (!this.columns[i].isFull)
+                {
+                    this.columns[i].addDisk(color);
+                    var score = this.getTotalScore();
+                    if (score < minimumScore)
+                    {
+                        minimumScore = score;
+                    }
+                    //remove again
+                    this.columns[i].removeDisk();
+                }
+            }
+            return minimumScore;
+        }
+        private void determineWinner()
+        {
+            this.winner = getWinner();
+        }
+        private CellColor getWinner()
         {
             for (int i = 0; i < this.columns.Count; i++)
             {
@@ -332,8 +292,7 @@ namespace FourInARow
                         if (this.isFourInARow(i, j))
                         {
                             //we have a winner
-                            this.winner = this.columns[i].cells[j].color;
-                            return;
+                            return this.columns[i].cells[j].color;
                         }
                     }
                     else
@@ -342,6 +301,7 @@ namespace FourInARow
                     }
                 }
             }
+            return CellColor.empty;
         }
         private bool isFourInARow(int i, int j)
         {
