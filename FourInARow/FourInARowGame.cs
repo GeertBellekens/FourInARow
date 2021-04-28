@@ -242,19 +242,6 @@ namespace FourInARow
             }
             //play the best column
             this.play(bestColumn);
-
-            ////play random
-            //Random rand = new Random();
-            //bool played = false;
-            //while (!played)
-            //{
-            //    var randomColumn = rand.Next(0, this.columns.Count);
-            //    if (!this.columns[randomColumn].isFull)
-            //    {
-            //        this.play(randomColumn);
-            //        played = true;
-            //    }
-            //}
         }
         private int calculateNextMove(CellColor color)
         {
